@@ -15,9 +15,11 @@
 package routes
 
 import (
+	"fmt"
 	"mystly/internal/core"
-	"github.com/gin-gonic/gin"
+
 	"github.com/gin-contrib/static"
+	"github.com/gin-gonic/gin"
 )
 
 func RegisterHandlers(server *core.Server) {
@@ -26,8 +28,14 @@ func RegisterHandlers(server *core.Server) {
 
 	// Add frontend...
 	server.Router.Use(static.Serve("/", static.LocalFile("../asha/build", true)))
-	server.Router.NoRoute(func(c *gin.Context) {
-		c.File("../asha/build/index.html")
+	server.Router.NoRoute(func(ctx *gin.Context) {
+		path := ctx.Request.URL.Path
+
+		if (path == "" || path == "/") {
+			ctx.File("../asha/build/index.html")
+		} else {
+			ctx.File(fmt.Sprintf("../asha/build/%s.html", path))
+		}
 	})
 }
 
