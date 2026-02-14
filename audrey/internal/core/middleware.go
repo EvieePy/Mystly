@@ -76,7 +76,7 @@ func (m *AuthMiddleware) Handler() gin.HandlerFunc {
 		if isBearer {
 
 		} else {
-			
+
 		}
 
 		// TODO: Fetch user from Database...

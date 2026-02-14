@@ -24,21 +24,20 @@ import (
 
 func RegisterHandlers(server *core.Server) {
 	// Register Handlers...
-	NewTestHandler("/test", server).RegisterRoutes()
+	NewOverviewHandler("/api", server).RegisterRoutes()
 
 	// Add frontend...
 	server.Router.Use(static.Serve("/", static.LocalFile("../asha/build", true)))
 	server.Router.NoRoute(func(ctx *gin.Context) {
 		path := ctx.Request.URL.Path
 
-		if (path == "" || path == "/") {
+		if path == "" || path == "/" {
 			ctx.File("../asha/build/index.html")
 		} else {
 			ctx.File(fmt.Sprintf("../asha/build/%s.html", path))
 		}
 	})
 }
-
 
 type IHandler interface {
 	RegisterRoutes()
