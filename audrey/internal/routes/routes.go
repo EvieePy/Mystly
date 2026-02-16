@@ -25,6 +25,7 @@ import (
 func RegisterHandlers(server *core.Server) {
 	// Register Handlers...
 	NewOverviewHandler("/api", server).RegisterRoutes()
+	NewUserHandler("/api", server).RegisterRoutes()
 
 	// Add frontend...
 	server.Router.Use(static.Serve("/", static.LocalFile("../asha/build", true)))
