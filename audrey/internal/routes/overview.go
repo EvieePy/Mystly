@@ -8,9 +8,9 @@ import (
 	"github.com/shirou/gopsutil/v4/mem"
 
 	"github.com/gin-gonic/gin"
+	"os"
 	"path/filepath"
 	"runtime"
-	"os"
 )
 
 type UsageStatistics struct {
@@ -71,7 +71,7 @@ func (h *OverviewHandler) apiSystemUsage() gin.HandlerFunc {
 		if err != nil {
 			hasErr = true
 		}
-		
+
 		root := "/"
 		system := runtime.GOOS
 
