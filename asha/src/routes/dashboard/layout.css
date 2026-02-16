@@ -1,0 +1,29 @@
+.wrapper {
+    padding: 0.5em;
+    height: 100%;
+    width: 100%;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr auto;
+    column-gap: 0.5em;
+    height: 100%;
+}
+
+aside {
+    grid-column: 1 / span 1;
+    overflow-y: auto;
+    height: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2 / span 5;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1em;
+    gap: 2em;
+}

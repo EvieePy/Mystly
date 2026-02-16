@@ -5,7 +5,7 @@
 	import { apiBase } from '../../../stores';
 	import Icon from '@iconify/svelte';
 
-	const URL: string = `${$apiBase}/overviewstats`;
+	const URL: string = `/api/overviewstats`;
 
 	interface SysUsage {
 		cpu_per: number;
@@ -50,7 +50,7 @@
 </script>
 
 <div>
-	<h3 class="text-tertiary">Dashboard Overview</h3>
+	<h3 class="text-surface-50">Dashboard Overview</h3>
 	<hr />
 </div>
 
@@ -150,5 +150,5 @@
 
 
 <div class="flex-c g-1 bg-surface-600 rd-2 p-1">
-	<h4 class="text-primary-400">Services Overview</h4>
+	<h4 class="text-surface-50">Services Overview</h4>
 </div>
