@@ -13,4 +13,12 @@ export default defineConfig({
     }),
     sveltekit(),
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:7171',
+        changeOrigin: true
+      }
+    }
+  }
 });
