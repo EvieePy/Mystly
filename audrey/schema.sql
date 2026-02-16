@@ -1,0 +1,28 @@
+CREATE TABLE IF NOT EXISTS roles (
+    role_id UUID PRIMARY KEY,
+    permissions BIGINT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    user_id UUID PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    role_id UUID REFERENCES roles(role_id) DEFAULT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    key TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS services (
+    service_id UUID PRIMARY KEY,
+    name TEXT NOT NULL,
+    type SMALLINT NOT NULL DEFAULT 0,
+    meta JSONB NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS development (
+
+);
+
+CREATE TABLE IF NOT EXISTS webhooks (
+
+);
