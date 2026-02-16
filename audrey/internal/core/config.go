@@ -14,6 +14,7 @@
 package core
 
 import (
+	"github.com/fernet/fernet-go"
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
 	"go.uber.org/zap"
@@ -24,6 +25,7 @@ type Config struct {
 	SessionSecret string `envconfig:"SESSION_SECRET"`
 	JWTSecret     string `envconfig:"JWT_SECRET"`
 	PostgresDSN   string `envconfig:"POSTGRES_DSN"`
+	FKey          *fernet.Key
 }
 
 func NewConfig(logger *zap.SugaredLogger) *Config {

@@ -15,6 +15,11 @@ package core
 
 import (
 	"crypto/rand"
+	"fmt"
+	"os"
+	"path/filepath"
+
+	"github.com/fernet/fernet-go"
 	"github.com/golang-jwt/jwt/v5"
 )
 
@@ -55,4 +60,38 @@ func (s *Server) ParseWebToken(tokenString string) (string, error) {
 	} else {
 		return "", err
 	}
+}
+
+func (s *Server) GetFernetKey() *fernet.Key {
+	cwd, err := os.Getwd()
+	if err != nil {
+		s.Log.Fatal("Unable to generate or get Fernet Key. %s", err)
+	}
+
+	fp := filepath.Clean(fmt.Sprintf("%s/.fkey", cwd))
+	fkey, err := os.ReadFile(fp)
+
+	if err == nil {
+		key, err := fernet.DecodeKey(string(fkey))
+		if err != nil {
+			s.Log.Fatal("Unable to generate or get Fernet Key. %s", err)
+		}
+
+		return key
+	}
+
+	var ekey fernet.Key
+	err = ekey.Generate()
+	if err != nil {
+		s.Log.Fatal("Unable to generate or get Fernet Key. %s", err)
+	}
+
+	encKey := ekey.Encode()
+	err = os.WriteFile(fp, []byte(encKey), 0644)
+
+	if err != nil {
+		s.Log.Fatal("Unable to generate or get Fernet Key. %s", err)
+	}
+
+	return &ekey
 }

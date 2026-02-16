@@ -54,6 +54,10 @@ func NewServer() *Server {
 	server.Log = sugar
 	server.Config = cfg
 
+	// Generate Fernet Key
+	fkey := server.GetFernetKey()
+	server.Config.FKey = fkey
+
 	// Setup Session Middleware...
 	store := cookie.NewStore([]byte(cfg.SessionSecret))
 	router.Use(sessions.Sessions("_sess_key", store))
